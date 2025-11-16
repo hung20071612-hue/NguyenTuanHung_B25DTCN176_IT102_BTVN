@@ -1,32 +1,27 @@
 #include<stdio.h>
-
-void sort(int *inputString, int *reverseString, int *size1, int *size2){
-	for(int i = 0; i < *size1; i++){
-		reverseString[i] = inputString[i];
-	}
-	for(int i = 0; i < *size2; i++){
-		for(int j = 0; j < *size2 - 1 - i; j++){
-			if(reverseString[j] > reverseString[j+1]){
-				int temp = *(reverseString+j);
-				*(reverseString+j) = *(reverseString+(j+1));
-				*(reverseString+(j+1)) = temp;
-			}
+#include<string.h>
+void swap(char *inputString, char *reverseString, int *size){
+		strcpy(reverseString,inputString);
+		int j = *size - 1;
+		int i = 0;
+		while(i < j){
+			char temp = *(reverseString+i);
+			*(reverseString+i) = *(reverseString+j);
+			*(reverseString+j) = temp;
+			i++;
+			j--;
 		}
-	}
-	for(int i = 0; i < *size1; i++){
-		printf("%d ",*(inputString + i));
-	}
-	printf("\n");
-	for(int i = 0; i < *size2; i++){
-		printf("%d ",*(reverseString + i));
-	}
+		printf("truoc khi dao nguoc chuoi: %s\n",inputString);
+		printf("sau khi dao nguoc chuoi: %s",reverseString);
 }
 int main(){
-	int inputString[7] = {1,5,6,9,5,3,19};
-	int reverseString[7];
-	int size1 = sizeof(inputString)/sizeof(int);
-	int size2 = sizeof(reverseString)/sizeof(int);
-	sort(inputString,reverseString,&size1,&size2);
+	char inputString[100];
+	char reverseString[100];
+	printf("moi ban nhap 1 chuoi: ");
+	fgets(inputString, sizeof(inputString), stdin);
+	inputString[strcspn(inputString,"\n")] = 0;
+	int size = strlen(inputString);
+	swap(inputString,reverseString,&size);
 	return 0;
 }
 
